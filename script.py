@@ -227,9 +227,8 @@ baseline_angle = BASELINE_ANGLE
 
 slouch_start = None
 
-# >>> ADDED: start timer AFTER calibration
+
 program_start_time = time.time()
-# <<< ADDED
 
 
 def beep():
@@ -309,7 +308,7 @@ while True:
 
         bad_posture = chin_bad or shoulder_bad or angle_bad
 
-        # >>> ADDED: POSTURE TIMER LOGIC (non-invasive)
+        #POSTURE TIMER LOGIC (non-invasive)
         if bad_posture:
             if bad_posture_active_start is None:
                 bad_posture_active_start = time.time()
@@ -317,7 +316,7 @@ while True:
             if bad_posture_active_start is not None:
                 bad_posture_total_time += time.time() - bad_posture_active_start
                 bad_posture_active_start = None
-        # <<< ADDED
+
 
         if bad_posture:
             cv2.putText(frame, "BAD POSTURE", (20,80),
@@ -340,17 +339,16 @@ while True:
         break
 
 
-# >>> ADDED: finalize timer on exit
+#finalize timer on exit
 if bad_posture_active_start is not None:
     bad_posture_total_time += time.time() - bad_posture_active_start
-# <<< ADDED
 
 
 cap.release()
 cv2.destroyAllWindows()
 
 
-# >>> ADDED: SUMMARY WINDOW
+#SUMMARY WINDOW
 def show_summary():
     root = tk.Tk()
     root.title("Session Summary")
@@ -370,4 +368,3 @@ def show_summary():
     root.mainloop()
 
 show_summary()
-# <<< ADDED
